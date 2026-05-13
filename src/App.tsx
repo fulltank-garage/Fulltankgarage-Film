@@ -174,16 +174,18 @@ function FilmGrid({
 }) {
   return (
     <>
-      <header className="mb-5">
-        <img
-          alt="FullTank Garage"
-          className="mb-4 h-auto w-48 rounded-xl object-cover shadow-[0_16px_38px_rgba(0,0,0,0.36)]"
-          src={fulltankGarageLogo}
-        />
-        <h1 className="mt-2 text-3xl font-black leading-tight">
-          เลือกดูข้อมูลฟิล์ม
-        </h1>
-      </header>
+      <nav className="sticky top-0 z-20 -mx-4 mb-5 border-b border-white/10 bg-[#070707]/94 px-4 py-3 backdrop-blur">
+        <div className="mx-auto flex w-full max-w-3xl items-center justify-center gap-3">
+          <img
+            alt="FullTank Garage"
+            className="h-11 w-11 shrink-0 rounded-xl object-cover shadow-[0_10px_24px_rgba(255,64,59,0.18)]"
+            src={fulltankGarageLogo}
+          />
+          <h1 className="min-w-0 text-center text-[22px] font-black leading-none text-white">
+            เลือกดูข้อมูลฟิล์ม
+          </h1>
+        </div>
+      </nav>
 
       <section className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         {films.map((film) => (
