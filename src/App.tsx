@@ -138,9 +138,11 @@ function App() {
 
     getJson<ApiFilm[]>('/public/films?public=true')
       .then((items) => {
-        if (isMounted && items.length > 0) {
-          setFilmItems(items.map(mapApiFilm))
+        if (!isMounted) {
+          return
         }
+
+        setFilmItems(items.length > 0 ? items.map(mapApiFilm) : films)
       })
       .catch(() => {
         if (isMounted) {
