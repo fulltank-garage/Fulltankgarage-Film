@@ -1,5 +1,6 @@
 import { ArrowLeft, ChevronRight, Gauge, ShieldCheck, Sun } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
+import fulltankGarageLogo from './assets/fulltank-garage-logo.jpg'
 import { getJson } from './lib/api'
 
 type Film = {
@@ -174,9 +175,11 @@ function FilmGrid({
   return (
     <>
       <header className="mb-5">
-        <p className="text-sm font-black uppercase tracking-[0.2em] text-[#ff403b]">
-          FullTank Film
-        </p>
+        <img
+          alt="FullTank Garage"
+          className="mb-4 h-auto w-48 rounded-xl object-cover shadow-[0_16px_38px_rgba(0,0,0,0.36)]"
+          src={fulltankGarageLogo}
+        />
         <h1 className="mt-2 text-3xl font-black leading-tight">
           เลือกดูข้อมูลฟิล์ม
         </h1>
@@ -228,9 +231,11 @@ function FilmDetail({ film, onBack }: { film: Film; onBack: () => void }) {
       <div className={`grid aspect-[16/10] place-items-center rounded-[1.25rem] bg-gradient-to-br ${film.gradient}`}>
         <div className="text-center">
           <p className="text-6xl font-black tracking-tight">{film.logo}</p>
-          <p className="mt-2 text-sm font-black uppercase tracking-[0.28em] text-white/68">
-            {film.series}
-          </p>
+          <img
+            alt="FullTank Garage"
+            className="mx-auto mt-4 h-auto w-44 rounded-lg object-cover opacity-90"
+            src={fulltankGarageLogo}
+          />
         </div>
       </div>
 
