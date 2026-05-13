@@ -125,7 +125,8 @@ const mapApiFilm = (film: ApiFilm, index: number): Film => ({
 })
 
 function App() {
-  const [filmItems, setFilmItems] = useState<Film[]>(films)
+  const [filmItems, setFilmItems] = useState<Film[]>([])
+  const [isLoadingFilms, setIsLoadingFilms] = useState(true)
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null)
   const selectedFilm = useMemo(
     () => filmItems.find((film) => film.slug === selectedSlug) ?? null,
@@ -146,6 +147,11 @@ function App() {
           setFilmItems(films)
         }
       })
+      .finally(() => {
+        if (isMounted) {
+          setIsLoadingFilms(false)
+        }
+      })
 
     return () => {
       isMounted = false
@@ -158,7 +164,7 @@ function App() {
         {selectedFilm ? (
           <FilmDetail film={selectedFilm} onBack={() => setSelectedSlug(null)} />
         ) : (
-          <FilmGrid films={filmItems} onSelect={setSelectedSlug} />
+          <FilmGrid films={filmItems} isLoading={isLoadingFilms} onSelect={setSelectedSlug} />
         )}
       </div>
     </main>
@@ -167,9 +173,11 @@ function App() {
 
 function FilmGrid({
   films,
+  isLoading,
   onSelect,
 }: {
   films: Film[]
+  isLoading: boolean
   onSelect: (slug: string) => void
 }) {
   return (
@@ -188,6 +196,7 @@ function FilmGrid({
       </nav>
 
       <section className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+        {isLoading ? <FilmGridSkeleton /> : null}
         {films.map((film) => (
           <button
             className="group min-h-44 rounded-[1.25rem] border border-white/12 bg-[#151515] p-3 text-left shadow-[0_0_28px_rgba(255,30,26,0.11)] transition active:scale-[0.98] sm:min-h-52"
@@ -214,6 +223,30 @@ function FilmGrid({
           </button>
         ))}
       </section>
+    </>
+  )
+}
+
+function FilmGridSkeleton() {
+  return (
+    <>
+      {Array.from({ length: 6 }, (_, index) => (
+        <article
+          aria-hidden="true"
+          className="min-h-44 rounded-[1.25rem] border border-white/12 bg-[#151515] p-3 shadow-[0_0_28px_rgba(255,30,26,0.11)] sm:min-h-52"
+          key={index}
+        >
+          <div className="aspect-square rounded-2xl skeleton-shimmer" />
+          <div className="mt-3 flex items-start gap-2">
+            <div className="min-w-0 flex-1">
+              <div className="h-5 w-4/5 rounded-xl skeleton-shimmer" />
+              <div className="mt-2 h-3 w-full rounded-xl skeleton-shimmer" />
+              <div className="mt-1.5 h-3 w-2/3 rounded-xl skeleton-shimmer" />
+            </div>
+            <div className="mt-1 size-5 rounded-full skeleton-shimmer" />
+          </div>
+        </article>
+      ))}
     </>
   )
 }
