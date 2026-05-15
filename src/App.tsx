@@ -4,11 +4,13 @@ import fulltankGarageLogo from './assets/fulltank-garage-logo.jpg'
 import { getJson } from './lib/api'
 
 type Film = {
+  id?: number
   slug: string
   name: string
   series: string
   summary: string
   description: string
+  imageUrl?: string
   logo: string
   gradient: string
   specs: {
@@ -19,6 +21,7 @@ type Film = {
 }
 
 type ApiFilm = {
+  id?: number
   slug: string
   name: string
   logo?: string
@@ -35,11 +38,13 @@ const gradients = [
 ]
 
 const mapApiFilm = (film: ApiFilm, index: number): Film => ({
+  id: film.id,
   slug: film.slug,
   name: film.name,
   series: 'FullTank Film',
   summary: film.summary || 'ข้อมูลฟิล์มจาก FullTank Garage',
   description: film.description || film.summary || 'รายละเอียดฟิล์ม',
+  imageUrl: film.imageUrl,
   logo:
     film.logo ||
     film.name
@@ -136,16 +141,20 @@ function FilmGrid({
         {films.map((film) => (
           <button
             className="group min-h-44 rounded-[1.25rem] border border-white/12 bg-[#151515] p-3 text-left shadow-[0_0_28px_rgba(255,30,26,0.11)] transition active:scale-[0.98] sm:min-h-52"
-            key={film.slug}
+            key={film.id ?? film.slug}
             onClick={() => onSelect(film.slug)}
             type="button"
           >
             <div
-              className={`grid aspect-square place-items-center rounded-2xl bg-gradient-to-br ${film.gradient} shadow-inner`}
+              className={`grid aspect-square place-items-center overflow-hidden rounded-2xl bg-gradient-to-br ${film.gradient} shadow-inner`}
             >
-              <span className="text-4xl font-black tracking-tight text-white">
-                {film.logo}
-              </span>
+              {film.imageUrl ? (
+                <img alt="" className="size-full object-contain" src={film.imageUrl} />
+              ) : (
+                <span className="text-4xl font-black tracking-tight text-white">
+                  {film.logo}
+                </span>
+              )}
             </div>
             <div className="mt-3 flex items-start gap-2">
               <div className="min-w-0 flex-1">
@@ -220,21 +229,34 @@ function FilmDetail({ film, onBack }: { film: Film; onBack: () => void }) {
       </nav>
 
       <article className="rounded-[1.5rem] border border-white/12 bg-[#151515] p-4 shadow-[0_0_34px_rgba(255,30,26,0.18)]">
-        <div className={`grid aspect-[16/10] place-items-center rounded-[1.25rem] bg-gradient-to-br ${film.gradient}`}>
-          <div className="text-center">
-            <p className="text-6xl font-black tracking-tight">{film.logo}</p>
-            <img
-              alt="FullTank Garage"
-              className="mx-auto mt-4 h-auto w-44 rounded-lg object-cover opacity-90"
-              src={fulltankGarageLogo}
-            />
-          </div>
+        <div className={`grid aspect-square place-items-center overflow-hidden rounded-[1.25rem] bg-gradient-to-br ${film.gradient}`}>
+          {film.imageUrl ? (
+            <img alt="" className="size-full object-contain" src={film.imageUrl} />
+          ) : (
+            <div className="text-center">
+              <p className="text-6xl font-black tracking-tight">{film.logo}</p>
+              <img
+                alt="FullTank Garage"
+                className="mx-auto mt-4 h-auto w-44 rounded-lg object-cover opacity-90"
+                src={fulltankGarageLogo}
+              />
+            </div>
+          )}
         </div>
 
         <h1 className="mt-5 text-3xl font-black">{film.name}</h1>
-        <p className="mt-3 text-base font-semibold leading-7 text-white/68">
-          {film.description}
+        <p className="mt-3 whitespace-pre-line text-base font-semibold leading-7 text-white/68">
+          {film.summary}
         </p>
+
+        <div className="mt-5 rounded-2xl border border-[#ff403b]/22 bg-[#ff403b]/8 p-4">
+          <h2 className="text-sm font-black text-white">
+            รายละเอียดฟิล์ม
+          </h2>
+          <p className="mt-2 whitespace-pre-line text-sm font-semibold leading-6 text-white/62">
+            {film.description}
+          </p>
+        </div>
 
         <div className="mt-5 grid grid-cols-3 gap-2">
           {film.specs.map((spec) => (
