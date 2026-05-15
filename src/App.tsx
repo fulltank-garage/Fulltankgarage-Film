@@ -1,4 +1,4 @@
-import { ArrowLeft, ChevronRight, Gauge, ShieldCheck, Sun } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Gauge, ShieldCheck, Sun } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import fulltankGarageLogo from './assets/fulltank-garage-logo.jpg'
 import { getJson } from './lib/api'
@@ -216,9 +216,6 @@ function FilmGrid({
             <div className="mt-3 flex items-start gap-2">
               <div className="min-w-0 flex-1">
                 <p className="truncate text-base font-black">{film.name}</p>
-                <p className="mt-1 line-clamp-2 text-xs font-semibold leading-5 text-white/55">
-                  {film.summary}
-                </p>
               </div>
               <ChevronRight className="mt-1 shrink-0 text-[#ff403b]" size={18} />
             </div>
@@ -242,8 +239,6 @@ function FilmGridSkeleton() {
           <div className="mt-3 flex items-start gap-2">
             <div className="min-w-0 flex-1">
               <div className="h-5 w-4/5 rounded-xl skeleton-shimmer" />
-              <div className="mt-2 h-3 w-full rounded-xl skeleton-shimmer" />
-              <div className="mt-1.5 h-3 w-2/3 rounded-xl skeleton-shimmer" />
             </div>
             <div className="mt-1 size-5 rounded-full skeleton-shimmer" />
           </div>
@@ -255,55 +250,71 @@ function FilmGridSkeleton() {
 
 function FilmDetail({ film, onBack }: { film: Film; onBack: () => void }) {
   return (
-    <article className="rounded-[1.5rem] border border-white/12 bg-[#151515] p-4 shadow-[0_0_34px_rgba(255,30,26,0.18)]">
-      <button
-        className="mb-4 inline-flex h-10 items-center gap-2 rounded-xl border border-white/12 px-3 text-sm font-bold text-white/78"
-        onClick={onBack}
-        type="button"
-      >
-        <ArrowLeft size={17} />
-        กลับ
-      </button>
-
-      <div className={`grid aspect-[16/10] place-items-center rounded-[1.25rem] bg-gradient-to-br ${film.gradient}`}>
-        <div className="text-center">
-          <p className="text-6xl font-black tracking-tight">{film.logo}</p>
-          <img
-            alt="FullTank Garage"
-            className="mx-auto mt-4 h-auto w-44 rounded-lg object-cover opacity-90"
-            src={fulltankGarageLogo}
-          />
-        </div>
-      </div>
-
-      <h1 className="mt-5 text-3xl font-black">{film.name}</h1>
-      <p className="mt-3 text-base font-semibold leading-7 text-white/68">
-        {film.description}
-      </p>
-
-      <div className="mt-5 grid grid-cols-3 gap-2">
-        {film.specs.map((spec) => (
-          <div className="rounded-xl border border-white/10 bg-white/[0.04] px-3 py-3 text-center" key={spec.label}>
-            <p className="text-xs font-black text-[#ff4a45]">{spec.label}</p>
-            <p className="mt-1 text-lg font-black">{spec.value}</p>
+    <>
+      <nav className="sticky top-0 z-20 -mx-4 mb-5 border-b border-white/10 bg-[#070707]/94 px-4 py-3 backdrop-blur">
+        <div className="relative mx-auto flex min-h-11 w-full max-w-3xl items-center justify-center">
+          <button
+            aria-label="กลับไปหน้าเลือกฟิล์ม"
+            className="absolute left-0 grid size-11 place-items-center rounded-xl border border-white/10 bg-white/5 text-white transition active:scale-95"
+            onClick={onBack}
+            type="button"
+          >
+            <ChevronLeft size={28} strokeWidth={2.6} />
+          </button>
+          <div className="flex min-w-0 items-center justify-center gap-3 px-12">
+            <img
+              alt="FullTank Garage"
+              className="h-11 w-11 shrink-0 rounded-xl object-cover shadow-[0_10px_24px_rgba(255,64,59,0.18)]"
+              src={fulltankGarageLogo}
+            />
+            <h1 className="min-w-0 truncate text-center text-[22px] font-black leading-none text-white">
+              {film.name}
+            </h1>
           </div>
-        ))}
-      </div>
+        </div>
+      </nav>
 
-      <div className="mt-5 space-y-2">
-        {film.highlights.map((item, index) => {
-          const icons = [ShieldCheck, Sun, Gauge]
-          const Icon = icons[index % icons.length]
+      <article className="rounded-[1.5rem] border border-white/12 bg-[#151515] p-4 shadow-[0_0_34px_rgba(255,30,26,0.18)]">
+        <div className={`grid aspect-[16/10] place-items-center rounded-[1.25rem] bg-gradient-to-br ${film.gradient}`}>
+          <div className="text-center">
+            <p className="text-6xl font-black tracking-tight">{film.logo}</p>
+            <img
+              alt="FullTank Garage"
+              className="mx-auto mt-4 h-auto w-44 rounded-lg object-cover opacity-90"
+              src={fulltankGarageLogo}
+            />
+          </div>
+        </div>
 
-          return (
-            <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-[#101010] px-3 py-3" key={item}>
-              <Icon className="text-[#ff403b]" size={19} />
-              <span className="text-sm font-bold text-white/78">{item}</span>
+        <h1 className="mt-5 text-3xl font-black">{film.name}</h1>
+        <p className="mt-3 text-base font-semibold leading-7 text-white/68">
+          {film.description}
+        </p>
+
+        <div className="mt-5 grid grid-cols-3 gap-2">
+          {film.specs.map((spec) => (
+            <div className="rounded-xl border border-white/10 bg-white/[0.04] px-3 py-3 text-center" key={spec.label}>
+              <p className="text-xs font-black text-[#ff4a45]">{spec.label}</p>
+              <p className="mt-1 text-lg font-black">{spec.value}</p>
             </div>
-          )
-        })}
-      </div>
-    </article>
+          ))}
+        </div>
+
+        <div className="mt-5 space-y-2">
+          {film.highlights.map((item, index) => {
+            const icons = [ShieldCheck, Sun, Gauge]
+            const Icon = icons[index % icons.length]
+
+            return (
+              <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-[#101010] px-3 py-3" key={item}>
+                <Icon className="text-[#ff403b]" size={19} />
+                <span className="text-sm font-bold text-white/78">{item}</span>
+              </div>
+            )
+          })}
+        </div>
+      </article>
+    </>
   )
 }
 
