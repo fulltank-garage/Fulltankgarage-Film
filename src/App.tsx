@@ -151,8 +151,8 @@ function FilmGrid({
               {film.imageUrl ? (
                 <img alt="" className="size-full object-contain" src={film.imageUrl} />
               ) : (
-                <span className="text-4xl font-black tracking-tight text-white">
-                  {film.logo}
+                <span className="px-4 text-center text-sm font-black leading-5 text-white/72">
+                  ตัวอย่างรูปภาพโลโก้
                 </span>
               )}
             </div>
@@ -233,8 +233,8 @@ function FilmDetail({ film, onBack }: { film: Film; onBack: () => void }) {
           {film.imageUrl ? (
             <img alt="" className="size-full object-contain" src={film.imageUrl} />
           ) : (
-            <div className="text-center">
-              <p className="text-6xl font-black tracking-tight">{film.logo}</p>
+            <div className="px-5 text-center">
+              <p className="text-lg font-black leading-7 text-white/78">ตัวอย่างรูปภาพโลโก้</p>
               <img
                 alt="FullTank Garage"
                 className="mx-auto mt-4 h-auto w-44 rounded-lg object-cover opacity-90"
