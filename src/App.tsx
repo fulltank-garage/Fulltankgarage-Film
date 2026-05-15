@@ -11,6 +11,7 @@ type Film = {
   summary: string
   description: string
   imageUrl?: string
+  galleryImages: string[]
   logo: string
   gradient: string
   specs: {
@@ -28,6 +29,7 @@ type ApiFilm = {
   summary?: string
   description?: string
   imageUrl?: string
+  galleryImages?: string[]
 }
 
 const gradients = [
@@ -45,6 +47,7 @@ const mapApiFilm = (film: ApiFilm, index: number): Film => ({
   summary: film.summary || 'ข้อมูลฟิล์มจาก FullTank Garage',
   description: film.description || film.summary || 'รายละเอียดฟิล์ม',
   imageUrl: film.imageUrl,
+  galleryImages: film.galleryImages ?? [],
   logo:
     film.logo ||
     film.name
@@ -228,8 +231,8 @@ function FilmDetail({ film, onBack }: { film: Film; onBack: () => void }) {
         </div>
       </nav>
 
-      <article className="rounded-[1.5rem] border border-white/12 bg-[#151515] p-4 shadow-[0_0_34px_rgba(255,30,26,0.18)]">
-        <div className={`grid aspect-square place-items-center overflow-hidden rounded-[1.25rem] bg-gradient-to-br ${film.gradient}`}>
+      <article className="overflow-hidden rounded-[1.5rem] border border-white/12 bg-[#151515] shadow-[0_0_34px_rgba(255,30,26,0.18)]">
+        <div className={`grid aspect-[16/9] place-items-center overflow-hidden bg-gradient-to-br ${film.gradient}`}>
           {film.imageUrl ? (
             <img alt="" className="size-full object-contain" src={film.imageUrl} />
           ) : (
@@ -244,12 +247,15 @@ function FilmDetail({ film, onBack }: { film: Film; onBack: () => void }) {
           )}
         </div>
 
-        <h1 className="mt-5 text-3xl font-black">{film.name}</h1>
-        <p className="mt-3 whitespace-pre-line text-base font-semibold leading-7 text-white/68">
-          {film.summary}
-        </p>
+        <div className="p-4">
+          <p className="text-xs font-black uppercase tracking-[0.22em] text-[#ff6965]">FULLTANK FILM</p>
+          <h1 className="mt-2 text-3xl font-black leading-tight">{film.name}</h1>
+          <p className="mt-3 whitespace-pre-line text-base font-semibold leading-7 text-white/68">
+            {film.summary}
+          </p>
+        </div>
 
-        <div className="mt-5 rounded-2xl border border-[#ff403b]/22 bg-[#ff403b]/8 p-4">
+        <div className="mx-4 rounded-2xl border border-[#ff403b]/22 bg-[#ff403b]/8 p-4">
           <h2 className="text-sm font-black text-white">
             รายละเอียดฟิล์ม
           </h2>
@@ -258,7 +264,20 @@ function FilmDetail({ film, onBack }: { film: Film; onBack: () => void }) {
           </p>
         </div>
 
-        <div className="mt-5 grid grid-cols-3 gap-2">
+        {film.galleryImages.length ? (
+          <section className="mx-4 mt-5">
+            <h2 className="text-sm font-black text-white">รูปภาพฟิล์ม</h2>
+            <div className="mt-3 grid gap-3">
+              {film.galleryImages.map((imageUrl) => (
+                <figure className="overflow-hidden rounded-2xl border border-white/10 bg-[#0d0d0d]" key={imageUrl}>
+                  <img alt="" className="aspect-[16/9] w-full object-cover" src={imageUrl} />
+                </figure>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
+        <div className="mx-4 mt-5 grid grid-cols-3 gap-2">
           {film.specs.map((spec) => (
             <div className="rounded-xl border border-white/10 bg-white/[0.04] px-3 py-3 text-center" key={spec.label}>
               <p className="text-xs font-black text-[#ff4a45]">{spec.label}</p>
@@ -267,7 +286,7 @@ function FilmDetail({ film, onBack }: { film: Film; onBack: () => void }) {
           ))}
         </div>
 
-        <div className="mt-5 space-y-2">
+        <div className="mx-4 mb-4 mt-5 space-y-2">
           {film.highlights.map((item, index) => {
             const icons = [ShieldCheck, Sun, Gauge]
             const Icon = icons[index % icons.length]
