@@ -54,7 +54,7 @@ const mapApiFilm = (film: ApiFilm, index: number): Film => ({
     { label: 'UV', value: '99%' },
     { label: 'TYPE', value: 'AUTO' },
   ],
-  highlights: ['ข้อมูลจากระบบ Admin', 'เหมาะสำหรับลูกค้า LINE LIFF', 'สอบถามรุ่นเพิ่มเติมได้ที่ร้าน'],
+  highlights: ['คัดรุ่นฟิล์มสำหรับรถยนต์', 'ดูข้อมูลได้สะดวกผ่านมือถือ', 'สอบถามรุ่นเพิ่มเติมได้ที่ร้าน'],
 })
 
 function App() {
@@ -165,7 +165,7 @@ function EmptyFilmState() {
     <div className="col-span-2 rounded-[1.25rem] border border-white/12 bg-[#151515] px-5 py-12 text-center shadow-[0_0_28px_rgba(255,30,26,0.11)] sm:col-span-3">
       <p className="text-xl font-black text-white">ยังไม่มีข้อมูลฟิล์ม</p>
       <p className="mt-2 text-sm font-semibold leading-6 text-white/55">
-        ข้อมูลฟิล์มจะแสดงที่หน้านี้เมื่อทีมงานเพิ่มข้อมูลจากระบบ Admin
+        กลับมาเช็กข้อมูลฟิล์มจาก FullTank Garage ได้เร็วๆ นี้
       </p>
     </div>
   )
