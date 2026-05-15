@@ -18,73 +18,6 @@ type Film = {
   highlights: string[]
 }
 
-const films: Film[] = [
-  {
-    slug: 'ceramic-black',
-    name: 'Ceramic Black',
-    series: 'Premium Ceramic',
-    summary: 'ฟิล์มเซรามิกโทนดำ คุมความร้อนสูง มองจากในรถชัดในเวลากลางวัน',
-    description:
-      'รุ่นยอดนิยมสำหรับรถใช้งานประจำวัน เน้นความเป็นส่วนตัว ลดแสงสะท้อน และยังคงมุมมองจากในห้องโดยสารให้สบายตา',
-    logo: 'CB',
-    gradient: 'from-[#ff312b] via-[#7e1110] to-[#151515]',
-    specs: [
-      { label: 'IRR', value: '95%' },
-      { label: 'UV', value: '99%' },
-      { label: 'VLT', value: '40 / 60' },
-    ],
-    highlights: ['สีดำเรียบ', 'ไม่รบกวนสัญญาณ', 'เหมาะกับรถใช้งานทุกวัน'],
-  },
-  {
-    slug: 'crystal-clear',
-    name: 'Crystal Clear',
-    series: 'Clear Vision',
-    summary: 'ฟิล์มใสลดร้อนสำหรับบานหน้า ให้ทัศนวิสัยชัดและลดไอแดด',
-    description:
-      'ออกแบบสำหรับลูกค้าที่ต้องการความโปร่งและความสบายตา เหมาะกับกระจกบานหน้าและรถที่ต้องการคงลุคเดิม',
-    logo: 'CC',
-    gradient: 'from-[#ff4b45] via-[#27364a] to-[#101318]',
-    specs: [
-      { label: 'IRR', value: '90%' },
-      { label: 'UV', value: '99%' },
-      { label: 'VLT', value: '70' },
-    ],
-    highlights: ['ใสสบายตา', 'ลดแสงสะท้อน', 'เหมาะกับบานหน้า'],
-  },
-  {
-    slug: 'metal-guard',
-    name: 'Metal Guard',
-    series: 'Heat Reflective',
-    summary: 'ฟิล์มสะท้อนความร้อนสูง เหมาะกับรถที่จอดกลางแดดบ่อย',
-    description:
-      'บาลานซ์ระหว่างความเข้ม การสะท้อนความร้อน และความทนทาน ใช้ได้ดีกับรถครอบครัวและรถเดินทางไกล',
-    logo: 'MG',
-    gradient: 'from-[#f03a34] via-[#4a4f58] to-[#111111]',
-    specs: [
-      { label: 'TSER', value: '68%' },
-      { label: 'UV', value: '99%' },
-      { label: 'VLT', value: '35 / 50' },
-    ],
-    highlights: ['กันร้อนจัด', 'ผิวเงาสปอร์ต', 'ทนทานต่อการใช้งาน'],
-  },
-  {
-    slug: 'privacy-max',
-    name: 'Privacy Max',
-    series: 'Deep Shade',
-    summary: 'ฟิล์มเข้มพิเศษสำหรับความเป็นส่วนตัวและลุคดุดัน',
-    description:
-      'เหมาะกับลูกค้าที่ต้องการความเป็นส่วนตัวสูงและภาพลักษณ์แดงดำแบบสปอร์ต ควรเลือกเปอร์เซ็นต์ตามกฎหมายและการใช้งานจริง',
-    logo: 'PM',
-    gradient: 'from-[#ff2f2b] via-[#2a0505] to-[#070707]',
-    specs: [
-      { label: 'IRR', value: '94%' },
-      { label: 'UV', value: '99%' },
-      { label: 'VLT', value: '20 / 40' },
-    ],
-    highlights: ['เข้มพิเศษ', 'ลุคสปอร์ต', 'เหมาะกับกระจกข้างและหลัง'],
-  },
-]
-
 type ApiFilm = {
   slug: string
   name: string
@@ -142,11 +75,11 @@ function App() {
           return
         }
 
-        setFilmItems(items.length > 0 ? items.map(mapApiFilm) : films)
+        setFilmItems(items.map(mapApiFilm))
       })
       .catch(() => {
         if (isMounted) {
-          setFilmItems(films)
+          setFilmItems([])
         }
       })
       .finally(() => {
@@ -199,6 +132,7 @@ function FilmGrid({
 
       <section className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         {isLoading ? <FilmGridSkeleton /> : null}
+        {!isLoading && films.length === 0 ? <EmptyFilmState /> : null}
         {films.map((film) => (
           <button
             className="group min-h-44 rounded-[1.25rem] border border-white/12 bg-[#151515] p-3 text-left shadow-[0_0_28px_rgba(255,30,26,0.11)] transition active:scale-[0.98] sm:min-h-52"
@@ -223,6 +157,17 @@ function FilmGrid({
         ))}
       </section>
     </>
+  )
+}
+
+function EmptyFilmState() {
+  return (
+    <div className="col-span-2 rounded-[1.25rem] border border-white/12 bg-[#151515] px-5 py-12 text-center shadow-[0_0_28px_rgba(255,30,26,0.11)] sm:col-span-3">
+      <p className="text-xl font-black text-white">ยังไม่มีข้อมูลฟิล์ม</p>
+      <p className="mt-2 text-sm font-semibold leading-6 text-white/55">
+        ข้อมูลฟิล์มจะแสดงที่หน้านี้เมื่อทีมงานเพิ่มข้อมูลจากระบบ Admin
+      </p>
+    </div>
   )
 }
 
