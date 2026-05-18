@@ -270,7 +270,7 @@ function FilmDetail({ film, onBack }: { film: Film; onBack: () => void }) {
             <div className="mt-3 grid gap-3">
               {film.galleryImages.map((imageUrl) => (
                 <figure className="overflow-hidden rounded-2xl border border-white/10 bg-[#0d0d0d]" key={imageUrl}>
-                  <img alt="" className="aspect-[16/9] w-full object-cover" src={imageUrl} />
+                  <img alt="" className="h-auto w-full object-contain" src={imageUrl} />
                 </figure>
               ))}
             </div>
