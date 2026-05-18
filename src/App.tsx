@@ -43,8 +43,8 @@ const mapApiFilm = (film: ApiFilm, index: number): Film => ({
   id: film.id,
   slug: film.slug,
   name: film.name,
-  series: 'FullTank Film',
-  summary: film.summary || 'ข้อมูลฟิล์มจาก FullTank Garage',
+  series: 'FULLTANK Film',
+  summary: film.summary || 'ข้อมูลฟิล์มจาก FULLTANK Garage',
   description: film.description || film.summary || 'รายละเอียดฟิล์ม',
   imageUrl: film.imageUrl,
   galleryImages: film.galleryImages ?? [],
@@ -128,7 +128,7 @@ function FilmGrid({
       <nav className="sticky top-0 z-20 -mx-4 mb-5 border-b border-white/10 bg-[#070707]/94 px-4 py-3 backdrop-blur">
         <div className="mx-auto flex w-full max-w-3xl items-center justify-center gap-3">
           <img
-            alt="FullTank Garage"
+            alt="FULLTANK Garage"
             className="h-11 w-11 shrink-0 rounded-xl object-cover shadow-[0_10px_24px_rgba(255,64,59,0.18)]"
             src={fulltankGarageLogo}
           />
@@ -177,7 +177,7 @@ function EmptyFilmState() {
     <div className="col-span-2 rounded-[1.25rem] border border-white/12 bg-[#151515] px-5 py-12 text-center shadow-[0_0_28px_rgba(255,30,26,0.11)] sm:col-span-3">
       <p className="text-xl font-black text-white">ยังไม่มีข้อมูลฟิล์ม</p>
       <p className="mt-2 text-sm font-semibold leading-6 text-white/55">
-        กลับมาเช็กข้อมูลฟิล์มจาก FullTank Garage ได้เร็วๆ นี้
+        กลับมาเช็กข้อมูลฟิล์มจาก FULLTANK Garage ได้เร็วๆ นี้
       </p>
     </div>
   )
@@ -220,7 +220,7 @@ function FilmDetail({ film, onBack }: { film: Film; onBack: () => void }) {
           </button>
           <div className="flex min-w-0 items-center justify-center gap-3 px-12">
             <img
-              alt="FullTank Garage"
+              alt="FULLTANK Garage"
               className="h-11 w-11 shrink-0 rounded-xl object-cover shadow-[0_10px_24px_rgba(255,64,59,0.18)]"
               src={fulltankGarageLogo}
             />
@@ -239,7 +239,7 @@ function FilmDetail({ film, onBack }: { film: Film; onBack: () => void }) {
             <div className="px-5 text-center">
               <p className="text-lg font-black leading-7 text-white/78">ตัวอย่างรูปภาพโลโก้</p>
               <img
-                alt="FullTank Garage"
+                alt="FULLTANK Garage"
                 className="mx-auto mt-4 h-auto w-44 rounded-lg object-cover opacity-90"
                 src={fulltankGarageLogo}
               />

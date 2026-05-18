@@ -1,7 +1,7 @@
 {
-  "name": "FullTank Garage Film",
-  "short_name": "FullTank Film",
-  "description": "FullTank Garage film catalog",
+  "name": "FULLTANK Garage Film",
+  "short_name": "FULLTANK Film",
+  "description": "FULLTANK Garage film catalog",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
