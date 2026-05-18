@@ -12,6 +12,24 @@ export const isApiBaseUrlConfigured = Boolean(
   configuredBaseUrl || import.meta.env.DEV,
 )
 
+export const resolveImageUrl = (value?: string | null) => {
+  const imageUrl = value?.trim()
+  if (!imageUrl) {
+    return ''
+  }
+
+  if (/^(https?:|data:|blob:)/i.test(imageUrl)) {
+    return imageUrl
+  }
+
+  const apiUrl = new URL(apiBaseUrl, window.location.origin)
+  apiUrl.pathname = apiUrl.pathname.replace(/\/api\/?$/, '/')
+  apiUrl.search = ''
+  apiUrl.hash = ''
+
+  return new URL(imageUrl, apiUrl).toString()
+}
+
 export const getJson = async <ResponseBody>(
   path: string,
   init?: RequestInit,

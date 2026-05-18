@@ -1,7 +1,7 @@
 import { ChevronLeft, ChevronRight, Gauge, ShieldCheck, Sun } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import fulltankGarageLogo from './assets/fulltank-garage-logo.jpg'
-import { getJson } from './lib/api'
+import { getJson, resolveImageUrl } from './lib/api'
 
 type Film = {
   id?: number
@@ -46,8 +46,8 @@ const mapApiFilm = (film: ApiFilm, index: number): Film => ({
   series: 'FULLTANK Film',
   summary: film.summary || 'ข้อมูลฟิล์มจาก FULLTANK Garage',
   description: film.description || film.summary || 'รายละเอียดฟิล์ม',
-  imageUrl: film.imageUrl,
-  galleryImages: film.galleryImages ?? [],
+  imageUrl: resolveImageUrl(film.imageUrl),
+  galleryImages: (film.galleryImages ?? []).map(resolveImageUrl),
   logo:
     film.logo ||
     film.name
