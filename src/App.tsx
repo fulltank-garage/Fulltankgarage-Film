@@ -154,14 +154,16 @@ function FilmGrid({
               {film.imageUrl ? (
                 <img alt="" className="size-full object-contain" src={film.imageUrl} />
               ) : (
-                <span className="px-4 text-center text-sm font-black leading-5 text-white/72">
-                  ตัวอย่างรูปภาพโลโก้
-                </span>
+                <img
+                  alt=""
+                  className="h-auto w-3/4 object-contain opacity-70"
+                  src={fulltankGarageLogo}
+                />
               )}
             </div>
             <div className="mt-3 flex items-start gap-2">
               <div className="min-w-0 flex-1">
-                <p className="truncate text-base font-black">{film.name}</p>
+                <p className="break-words text-base font-black leading-snug">{film.name}</p>
               </div>
               <ChevronRight className="mt-1 shrink-0 text-[#ff403b]" size={18} />
             </div>
@@ -221,10 +223,10 @@ function FilmDetail({ film, onBack }: { film: Film; onBack: () => void }) {
           <div className="flex min-w-0 items-center justify-center gap-3 px-12">
             <img
               alt="FULLTANK Garage"
-              className="h-11 w-11 shrink-0 rounded-xl object-cover shadow-[0_10px_24px_rgba(255,64,59,0.18)]"
+              className="h-11 w-11 shrink-0 rounded-xl object-contain shadow-[0_10px_24px_rgba(255,64,59,0.18)]"
               src={fulltankGarageLogo}
             />
-            <h1 className="min-w-0 truncate text-center text-[22px] font-black leading-none text-white">
+            <h1 className="min-w-0 whitespace-nowrap text-center text-[clamp(0.92rem,4.25vw,1.55rem)] font-black leading-none text-white">
               {film.name}
             </h1>
           </div>
@@ -234,25 +236,18 @@ function FilmDetail({ film, onBack }: { film: Film; onBack: () => void }) {
       <article className="overflow-hidden rounded-[1.5rem] border border-white/12 bg-[#151515] shadow-[0_0_34px_rgba(255,30,26,0.18)]">
         <div className={`grid aspect-[16/9] place-items-center overflow-hidden bg-gradient-to-br ${film.gradient}`}>
           {film.imageUrl ? (
-            <img alt="" className="size-full object-contain" src={film.imageUrl} />
+            <img alt="" className="max-h-full max-w-full object-contain" src={film.imageUrl} />
           ) : (
-            <div className="px-5 text-center">
-              <p className="text-lg font-black leading-7 text-white/78">ตัวอย่างรูปภาพโลโก้</p>
-              <img
-                alt="FULLTANK Garage"
-                className="mx-auto mt-4 h-auto w-44 rounded-lg object-cover opacity-90"
-                src={fulltankGarageLogo}
-              />
-            </div>
+            <img
+              alt="FULLTANK Garage"
+              className="h-auto w-48 rounded-lg object-contain opacity-90"
+              src={fulltankGarageLogo}
+            />
           )}
         </div>
 
         <div className="p-4">
-          <p className="text-xs font-black uppercase tracking-[0.22em] text-[#ff6965]">FULLTANK FILM</p>
-          <h1 className="mt-2 text-3xl font-black leading-tight">{film.name}</h1>
-          <p className="mt-3 whitespace-pre-line text-base font-semibold leading-7 text-white/68">
-            {film.summary}
-          </p>
+          <h1 className="text-3xl font-black leading-tight">{film.name}</h1>
         </div>
 
         <div className="mx-4 rounded-2xl border border-[#ff403b]/22 bg-[#ff403b]/8 p-4">
@@ -266,7 +261,6 @@ function FilmDetail({ film, onBack }: { film: Film; onBack: () => void }) {
 
         {film.galleryImages.length ? (
           <section className="mx-4 mt-5">
-            <h2 className="text-sm font-black text-white">รูปภาพฟิล์ม</h2>
             <div className="mt-3 grid gap-3">
               {film.galleryImages.map((imageUrl) => (
                 <figure className="overflow-hidden rounded-2xl border border-white/10 bg-[#0d0d0d]" key={imageUrl}>
