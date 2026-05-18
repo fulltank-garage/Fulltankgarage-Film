@@ -12,6 +12,9 @@ type Film = {
   description: string
   imageUrl?: string
   galleryImages: string[]
+  irr: string
+  uvProtection: string
+  filmType: string
   logo: string
   gradient: string
   specs: {
@@ -30,6 +33,12 @@ type ApiFilm = {
   description?: string
   imageUrl?: string
   galleryImages?: string[]
+  irr?: string
+  uvProtection?: string
+  filmType?: string
+  highlightOne?: string
+  highlightTwo?: string
+  highlightThree?: string
 }
 
 const gradients = [
@@ -48,6 +57,9 @@ const mapApiFilm = (film: ApiFilm, index: number): Film => ({
   description: film.description || film.summary || 'รายละเอียดฟิล์ม',
   imageUrl: resolveImageUrl(film.imageUrl),
   galleryImages: (film.galleryImages ?? []).map(resolveImageUrl),
+  irr: film.irr?.trim() || '90%+',
+  uvProtection: film.uvProtection?.trim() || '99%',
+  filmType: film.filmType?.trim() || 'AUTO',
   logo:
     film.logo ||
     film.name
@@ -58,11 +70,15 @@ const mapApiFilm = (film: ApiFilm, index: number): Film => ({
       .toUpperCase(),
   gradient: gradients[index % gradients.length],
   specs: [
-    { label: 'IRR', value: '90%+' },
-    { label: 'UV', value: '99%' },
-    { label: 'TYPE', value: 'AUTO' },
+    { label: 'IRR', value: film.irr?.trim() || '90%+' },
+    { label: 'UV', value: film.uvProtection?.trim() || '99%' },
+    { label: 'TYPE', value: film.filmType?.trim() || 'AUTO' },
   ],
-  highlights: ['คัดรุ่นฟิล์มสำหรับรถยนต์', 'ดูข้อมูลได้สะดวกผ่านมือถือ', 'สอบถามรุ่นเพิ่มเติมได้ที่ร้าน'],
+  highlights: [
+    film.highlightOne?.trim() || 'คัดรุ่นฟิล์มสำหรับรถยนต์',
+    film.highlightTwo?.trim() || 'ดูข้อมูลได้สะดวกผ่านมือถือ',
+    film.highlightThree?.trim() || 'สอบถามรุ่นเพิ่มเติมได้ที่ร้าน',
+  ],
 })
 
 function App() {
