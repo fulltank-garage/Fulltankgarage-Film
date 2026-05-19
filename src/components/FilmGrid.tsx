@@ -1,6 +1,7 @@
 import { ChevronRight } from 'lucide-react'
 import fulltankGarageLogo from '../assets/fulltank-garage-logo.jpg'
 import type { Film } from '../types/film'
+import { EmptyState } from './FeedbackStates'
 
 export function FilmGrid({
   films,
@@ -28,7 +29,13 @@ export function FilmGrid({
 
       <section className="grid grid-cols-2 gap-3 sm:grid-cols-3">
         {isLoading ? <FilmGridSkeleton /> : null}
-        {!isLoading && films.length === 0 ? <EmptyFilmState /> : null}
+        {!isLoading && films.length === 0 ? (
+          <EmptyState
+            className="col-span-2 sm:col-span-3"
+            description="กลับมาเช็กข้อมูลฟิล์มจาก FULLTANK Garage ได้เร็วๆ นี้"
+            title="ยังไม่มีข้อมูลฟิล์ม"
+          />
+        ) : null}
         {films.map((film) => (
           <button
             className="group min-h-44 rounded-[1.25rem] border border-white/12 bg-[#151515] p-3 text-left shadow-[0_0_28px_rgba(255,30,26,0.11)] transition active:scale-[0.98] sm:min-h-52"
@@ -59,17 +66,6 @@ export function FilmGrid({
         ))}
       </section>
     </>
-  )
-}
-
-function EmptyFilmState() {
-  return (
-    <div className="col-span-2 rounded-[1.25rem] border border-white/12 bg-[#151515] px-5 py-12 text-center shadow-[0_0_28px_rgba(255,30,26,0.11)] sm:col-span-3">
-      <p className="text-xl font-black text-white">ยังไม่มีข้อมูลฟิล์ม</p>
-      <p className="mt-2 text-sm font-semibold leading-6 text-white/55">
-        กลับมาเช็กข้อมูลฟิล์มจาก FULLTANK Garage ได้เร็วๆ นี้
-      </p>
-    </div>
   )
 }
 
