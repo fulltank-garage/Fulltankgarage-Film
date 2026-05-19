@@ -11,6 +11,7 @@ type Film = {
   summary: string
   description: string
   imageUrl?: string
+  priceTableImageUrl?: string
   galleryImages: string[]
   irr: string
   uvProtection: string
@@ -32,6 +33,7 @@ type ApiFilm = {
   summary?: string
   description?: string
   imageUrl?: string
+  priceTableImageUrl?: string
   galleryImages?: string[]
   irr?: string
   uvProtection?: string
@@ -56,6 +58,7 @@ const mapApiFilm = (film: ApiFilm, index: number): Film => ({
   summary: film.summary || 'ข้อมูลฟิล์มจาก FULLTANK Garage',
   description: film.description || film.summary || 'รายละเอียดฟิล์ม',
   imageUrl: resolveImageUrl(film.imageUrl),
+  priceTableImageUrl: resolveImageUrl(film.priceTableImageUrl),
   galleryImages: (film.galleryImages ?? []).map(resolveImageUrl),
   irr: film.irr?.trim() || '90%+',
   uvProtection: film.uvProtection?.trim() || '99%',
@@ -284,6 +287,17 @@ function FilmDetail({ film, onBack }: { film: Film; onBack: () => void }) {
                 </figure>
               ))}
             </div>
+          </section>
+        ) : null}
+
+        {film.priceTableImageUrl ? (
+          <section className="mx-4 mt-5">
+            <h2 className="text-sm font-black text-white">
+              ตารางราคาฟิล์ม
+            </h2>
+            <figure className="mt-3 overflow-hidden rounded-2xl border border-white/10 bg-[#0d0d0d]">
+              <img alt="ตารางราคาฟิล์ม" className="h-auto w-full object-contain" src={film.priceTableImageUrl} />
+            </figure>
           </section>
         ) : null}
 
