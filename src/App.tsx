@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight, Gauge, ShieldCheck, Sun } from 'lucide-react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import fulltankGarageLogo from './assets/fulltank-garage-logo.jpg'
 import { getJson, resolveImageUrl } from './lib/api'
@@ -22,7 +22,6 @@ type Film = {
     label: string
     value: string
   }[]
-  highlights: string[]
 }
 
 type ApiFilm = {
@@ -38,9 +37,6 @@ type ApiFilm = {
   irr?: string
   uvProtection?: string
   filmType?: string
-  highlightOne?: string
-  highlightTwo?: string
-  highlightThree?: string
 }
 
 const gradients = [
@@ -76,11 +72,6 @@ const mapApiFilm = (film: ApiFilm, index: number): Film => ({
     { label: 'IRR', value: film.irr?.trim() || '90%+' },
     { label: 'UV', value: film.uvProtection?.trim() || '99%' },
     { label: 'TYPE', value: film.filmType?.trim() || 'AUTO' },
-  ],
-  highlights: [
-    film.highlightOne?.trim() || 'คัดรุ่นฟิล์มสำหรับรถยนต์',
-    film.highlightTwo?.trim() || 'ดูข้อมูลได้สะดวกผ่านมือถือ',
-    film.highlightThree?.trim() || 'สอบถามรุ่นเพิ่มเติมได้ที่ร้าน',
   ],
 })
 
@@ -310,19 +301,6 @@ function FilmDetail({ film, onBack }: { film: Film; onBack: () => void }) {
           ))}
         </div>
 
-        <div className="mx-4 mb-4 mt-5 space-y-2">
-          {film.highlights.map((item, index) => {
-            const icons = [ShieldCheck, Sun, Gauge]
-            const Icon = icons[index % icons.length]
-
-            return (
-              <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-[#101010] px-3 py-3" key={item}>
-                <Icon className="text-[#ff403b]" size={19} />
-                <span className="text-sm font-bold text-white/78">{item}</span>
-              </div>
-            )
-          })}
-        </div>
       </article>
     </>
   )
