@@ -10,7 +10,13 @@ export type Film = {
   galleryImages: string[]
   irr: string
   uvProtection: string
+  vlt: string
+  tser: string
+  vlr: string
   filmType: string
+  vehicleType: string
+  installPosition: string
+  highlights: string[]
   logo: string
   gradient: string
   specs: {
@@ -31,5 +37,11 @@ export type ApiFilm = {
   galleryImages?: string[]
   irr?: string
   uvProtection?: string
+  vlt?: string
+  tser?: string
+  vlr?: string
   filmType?: string
+  vehicleType?: string
+  installPosition?: string
+  highlights?: string[]
 }

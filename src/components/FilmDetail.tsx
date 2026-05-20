@@ -1,4 +1,4 @@
-import { ChevronLeft } from 'lucide-react'
+import { Car, ChevronLeft, MapPin, ShieldCheck } from 'lucide-react'
 import fulltankGarageLogo from '../assets/fulltank-garage-logo.jpg'
 import type { Film } from '../types/film'
 
@@ -73,7 +73,24 @@ export function FilmDetail({ film, onBack }: { film: Film; onBack: () => void })
           </section>
         ) : null}
 
-        <div className="mx-4 mt-5 grid grid-cols-3 gap-2">
+        <section className="mx-4 mt-5 grid gap-2">
+          <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-[#0d0d0d] px-4 py-4">
+            <Car className="shrink-0 text-[#ff4a45]" size={24} />
+            <div className="min-w-0">
+              <p className="text-xs font-black text-white/42">ประเภทรถ</p>
+              <p className="break-words text-base font-black text-white/82">{film.vehicleType}</p>
+            </div>
+          </div>
+          <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-[#0d0d0d] px-4 py-4">
+            <MapPin className="shrink-0 text-[#ff4a45]" size={24} />
+            <div className="min-w-0">
+              <p className="text-xs font-black text-white/42">ตำแหน่งติดตั้ง</p>
+              <p className="break-words text-base font-black text-white/82">{film.installPosition}</p>
+            </div>
+          </div>
+        </section>
+
+        <div className="mx-4 mt-5 grid grid-cols-2 gap-2">
           {film.specs.map((spec) => (
             <div className="rounded-xl border border-white/10 bg-white/[0.04] px-3 py-3 text-center" key={spec.label}>
               <p className="text-xs font-black text-[#ff4a45]">{spec.label}</p>
@@ -81,6 +98,20 @@ export function FilmDetail({ film, onBack }: { film: Film; onBack: () => void })
             </div>
           ))}
         </div>
+
+        {film.highlights.length ? (
+          <section className="mx-4 mt-5 grid gap-2">
+            {film.highlights.map((highlight, index) => (
+              <div
+                className="flex items-center gap-3 rounded-2xl border border-[#ff403b]/18 bg-[#ff403b]/8 px-4 py-4"
+                key={`${highlight}-${index}`}
+              >
+                <ShieldCheck className="shrink-0 text-[#ff4a45]" size={24} />
+                <p className="min-w-0 break-words text-base font-black leading-snug text-white/78">{highlight}</p>
+              </div>
+            ))}
+          </section>
+        ) : null}
       </article>
     </>
   )
