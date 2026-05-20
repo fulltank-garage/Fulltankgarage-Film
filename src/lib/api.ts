@@ -52,3 +52,77 @@ export const getJson = async <ResponseBody>(
 
   return response.json() as Promise<ResponseBody>
 }
+
+export type CatalogRealtimeEvent =
+  | { type: 'film.created' | 'film.updated'; data: unknown }
+  | { type: 'film.deleted'; data: { id?: number | string } }
+  | { type: 'promotion.created' | 'promotion.updated'; data: unknown }
+  | { type: 'promotion.deleted'; data: { id?: number | string } }
+
+const createCatalogEventsSocket = () => {
+  if (!isApiBaseUrlConfigured) {
+    return null
+  }
+
+  const baseUrl = new URL(apiBaseUrl, window.location.origin)
+  baseUrl.protocol = baseUrl.protocol === 'https:' ? 'wss:' : 'ws:'
+  baseUrl.pathname = `${baseUrl.pathname.replace(/\/$/, '')}/catalog/events`
+  baseUrl.search = ''
+
+  return new WebSocket(baseUrl.toString())
+}
+
+export const subscribeCatalogEvents = (
+  onEvent: (event: CatalogRealtimeEvent) => void,
+) => {
+  let socket: WebSocket | null = null
+  let retryTimer: ReturnType<typeof setTimeout> | null = null
+  let retryCount = 0
+  let isClosed = false
+
+  const connect = () => {
+    if (isClosed || socket?.readyState === WebSocket.OPEN || socket?.readyState === WebSocket.CONNECTING) {
+      return
+    }
+
+    socket = createCatalogEventsSocket()
+    if (!socket) {
+      return
+    }
+
+    socket.onopen = () => {
+      retryCount = 0
+    }
+
+    socket.onmessage = (message) => {
+      try {
+        onEvent(JSON.parse(message.data) as CatalogRealtimeEvent)
+      } catch {
+        // Ignore malformed realtime payloads.
+      }
+    }
+
+    socket.onerror = () => {
+      socket?.close()
+    }
+
+    socket.onclose = () => {
+      if (isClosed) {
+        return
+      }
+
+      retryCount += 1
+      retryTimer = setTimeout(connect, Math.min(1000 * retryCount, 10000))
+    }
+  }
+
+  connect()
+
+  return () => {
+    isClosed = true
+    if (retryTimer) {
+      clearTimeout(retryTimer)
+    }
+    socket?.close()
+  }
+}

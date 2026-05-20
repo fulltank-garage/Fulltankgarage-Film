@@ -44,4 +44,5 @@ export type ApiFilm = {
   vehicleType?: string
   installPosition?: string
   highlights?: string[]
+  isActive?: boolean
 }
