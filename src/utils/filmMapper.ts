@@ -18,14 +18,6 @@ export const mapApiFilm = (film: ApiFilm, index: number): Film => ({
   imageUrl: resolveImageUrl(film.imageUrl),
   priceTableImageUrl: resolveImageUrl(film.priceTableImageUrl),
   galleryImages: (film.galleryImages ?? []).map(resolveImageUrl),
-  irr: film.irr?.trim() || '90%+',
-  uvProtection: film.uvProtection?.trim() || '99%',
-  vlt: film.vlt?.trim() || '40%',
-  tser: film.tser?.trim() || '60%+',
-  vlr: film.vlr?.trim() || 'ต่ำ',
-  filmType: film.filmType?.trim() || 'AUTO',
-  vehicleType: film.vehicleType?.trim() || 'รถยนต์',
-  installPosition: film.installPosition?.trim() || 'บานหน้า / รอบคัน',
   highlights: film.highlights?.length
     ? film.highlights
     : ['ฟิล์มรถยนต์เซรามิก', 'มองชัดทั้งกลางวันและกลางคืน', 'ไม่รบกวน GPS และ Easy Pass'],
@@ -38,12 +30,4 @@ export const mapApiFilm = (film: ApiFilm, index: number): Film => ({
       .slice(0, 2)
       .toUpperCase(),
   gradient: gradients[index % gradients.length],
-  specs: [
-    { label: 'IRR', value: film.irr?.trim() || '90%+' },
-    { label: 'UV', value: film.uvProtection?.trim() || '99%' },
-    { label: 'VLT', value: film.vlt?.trim() || '40%' },
-    { label: 'TSER', value: film.tser?.trim() || '60%+' },
-    { label: 'VLR', value: film.vlr?.trim() || 'ต่ำ' },
-    { label: 'TYPE', value: film.filmType?.trim() || 'AUTO' },
-  ],
 })

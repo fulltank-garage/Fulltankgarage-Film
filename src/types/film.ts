@@ -8,21 +8,9 @@ export type Film = {
   imageUrl?: string
   priceTableImageUrl?: string
   galleryImages: string[]
-  irr: string
-  uvProtection: string
-  vlt: string
-  tser: string
-  vlr: string
-  filmType: string
-  vehicleType: string
-  installPosition: string
   highlights: string[]
   logo: string
   gradient: string
-  specs: {
-    label: string
-    value: string
-  }[]
 }
 
 export type ApiFilm = {
