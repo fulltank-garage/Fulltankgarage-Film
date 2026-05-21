@@ -28,7 +28,7 @@ export function FilmDetail({ film, onBack }: { film: Film; onBack: () => void })
         </div>
       </nav>
 
-      <article className="overflow-hidden rounded-[1.5rem] border border-white/12 bg-[#151515] shadow-[0_0_34px_rgba(255,30,26,0.18)]">
+      <article className="overflow-hidden rounded-[1.5rem] border border-white/12 bg-[#151515] pb-4 shadow-[0_0_34px_rgba(255,30,26,0.18)]">
         <div className={`grid aspect-[16/9] place-items-center overflow-hidden bg-gradient-to-br ${film.gradient}`}>
           {film.imageUrl ? (
             <img alt="" className="max-h-full max-w-full object-contain" src={film.imageUrl} />
