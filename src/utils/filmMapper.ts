@@ -2,10 +2,10 @@ import { resolveImageUrl } from '../lib/api'
 import type { ApiFilm, Film } from '../types/film'
 
 const gradients = [
-  'from-[#ff312b] via-[#7e1110] to-[#151515]',
-  'from-[#ff4b45] via-[#27364a] to-[#101318]',
-  'from-[#f03a34] via-[#4a4f58] to-[#111111]',
-  'from-[#ff2f2b] via-[#2a0505] to-[#070707]',
+  'from-[#C0392B] via-[#C0392B] to-[#151515]',
+  'from-[#C0392B] via-[#27364a] to-[#101318]',
+  'from-[#C0392B] via-[#4a4f58] to-[#111111]',
+  'from-[#C0392B] via-[#080205] to-[#080205]',
 ]
 
 export const mapApiFilm = (film: ApiFilm, index: number): Film => ({

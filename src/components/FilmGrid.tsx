@@ -14,11 +14,11 @@ export function FilmGrid({
 }) {
   return (
     <>
-      <nav className="sticky top-0 z-20 -mx-4 mb-5 border-b border-white/10 bg-[#070707]/94 px-4 py-3 backdrop-blur">
+      <nav className="sticky top-0 z-20 -mx-4 mb-5 border-b border-white/10 bg-[#080205]/94 px-4 py-3 backdrop-blur">
         <div className="mx-auto flex w-full max-w-3xl items-center justify-center gap-3">
           <img
             alt="FULLTANK Garage"
-            className="h-11 w-11 shrink-0 rounded-xl object-cover shadow-[0_10px_24px_rgba(255,64,59,0.18)]"
+            className="h-11 w-11 shrink-0 rounded-xl object-cover shadow-[0_10px_24px_rgba(192,57,43,0.18)]"
             src={fulltankGarageLogo}
           />
           <h1 className="min-w-0 text-center text-[22px] font-black leading-none text-white">
@@ -38,7 +38,7 @@ export function FilmGrid({
         ) : null}
         {films.map((film) => (
           <button
-            className="group min-h-44 rounded-[1.25rem] border border-white/12 bg-[#151515] p-3 text-left shadow-[0_0_28px_rgba(255,30,26,0.11)] transition active:scale-[0.98] sm:min-h-52"
+            className="group min-h-44 rounded-[1.25rem] border border-white/12 bg-[#151515] p-3 text-left shadow-[0_0_28px_rgba(192,57,43,0.11)] transition active:scale-[0.98] sm:min-h-52"
             key={film.id ?? film.slug}
             onClick={() => onSelect(film.slug)}
             type="button"
@@ -60,7 +60,7 @@ export function FilmGrid({
               <div className="min-w-0 flex-1">
                 <p className="break-words text-base font-black leading-snug">{film.name}</p>
               </div>
-              <ChevronRight className="mt-1 shrink-0 text-[#ff403b]" size={18} />
+              <ChevronRight className="mt-1 shrink-0 text-[#C0392B]" size={18} />
             </div>
           </button>
         ))}
@@ -75,7 +75,7 @@ function FilmGridSkeleton() {
       {Array.from({ length: 6 }, (_, index) => (
         <article
           aria-hidden="true"
-          className="min-h-44 rounded-[1.25rem] border border-white/12 bg-[#151515] p-3 shadow-[0_0_28px_rgba(255,30,26,0.11)] sm:min-h-52"
+          className="min-h-44 rounded-[1.25rem] border border-white/12 bg-[#151515] p-3 shadow-[0_0_28px_rgba(192,57,43,0.11)] sm:min-h-52"
           key={index}
         >
           <div className="aspect-square rounded-2xl skeleton-shimmer" />

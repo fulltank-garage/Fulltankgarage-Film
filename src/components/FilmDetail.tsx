@@ -5,7 +5,7 @@ import type { Film } from '../types/film'
 export function FilmDetail({ film, onBack }: { film: Film; onBack: () => void }) {
   return (
     <>
-      <nav className="sticky top-0 z-20 -mx-4 mb-5 border-b border-white/10 bg-[#070707]/94 px-4 py-3 backdrop-blur">
+      <nav className="sticky top-0 z-20 -mx-4 mb-5 border-b border-white/10 bg-[#080205]/94 px-4 py-3 backdrop-blur">
         <div className="relative mx-auto flex min-h-11 w-full max-w-3xl items-center justify-center">
           <button
             aria-label="กลับไปหน้าเลือกฟิล์ม"
@@ -18,7 +18,7 @@ export function FilmDetail({ film, onBack }: { film: Film; onBack: () => void })
           <div className="flex min-w-0 items-center justify-center gap-3 px-12">
             <img
               alt="FULLTANK Garage"
-              className="h-11 w-11 shrink-0 rounded-xl object-contain shadow-[0_10px_24px_rgba(255,64,59,0.18)]"
+              className="h-11 w-11 shrink-0 rounded-xl object-contain shadow-[0_10px_24px_rgba(192,57,43,0.18)]"
               src={fulltankGarageLogo}
             />
             <h1 className="min-w-0 whitespace-nowrap text-center text-[clamp(0.92rem,4.25vw,1.55rem)] font-black leading-none text-white">
@@ -28,7 +28,7 @@ export function FilmDetail({ film, onBack }: { film: Film; onBack: () => void })
         </div>
       </nav>
 
-      <article className="overflow-hidden rounded-[1.5rem] border border-white/12 bg-[#151515] pb-4 shadow-[0_0_34px_rgba(255,30,26,0.18)]">
+      <article className="overflow-hidden rounded-[1.5rem] border border-white/12 bg-[#151515] pb-4 shadow-[0_0_34px_rgba(192,57,43,0.18)]">
         <div className={`grid aspect-[16/9] place-items-center overflow-hidden bg-gradient-to-br ${film.gradient}`}>
           {film.imageUrl ? (
             <img alt="" className="max-h-full max-w-full object-contain" src={film.imageUrl} />
@@ -45,7 +45,7 @@ export function FilmDetail({ film, onBack }: { film: Film; onBack: () => void })
           <h1 className="text-3xl font-black leading-tight">{film.name}</h1>
         </div>
 
-        <div className="mx-4 rounded-2xl border border-[#ff403b]/22 bg-[#ff403b]/8 p-4">
+        <div className="mx-4 rounded-2xl border border-[#C0392B]/22 bg-[#C0392B]/8 p-4">
           <h2 className="text-sm font-black text-white">รายละเอียดฟิล์ม</h2>
           <p className="mt-2 whitespace-pre-line text-sm font-semibold leading-6 text-white/62">
             {film.description}
@@ -56,7 +56,7 @@ export function FilmDetail({ film, onBack }: { film: Film; onBack: () => void })
           <section className="mx-4 mt-5">
             <div className="mt-3 grid gap-3">
               {film.galleryImages.map((imageUrl) => (
-                <figure className="overflow-hidden rounded-2xl border border-white/10 bg-[#0d0d0d]" key={imageUrl}>
+                <figure className="overflow-hidden rounded-2xl border border-white/10 bg-[#080205]" key={imageUrl}>
                   <img alt="" className="h-auto w-full object-contain" src={imageUrl} />
                 </figure>
               ))}
@@ -67,7 +67,7 @@ export function FilmDetail({ film, onBack }: { film: Film; onBack: () => void })
         {film.priceTableImageUrl ? (
           <section className="mx-4 mt-5">
             <h2 className="text-sm font-black text-white">ตารางราคาฟิล์ม</h2>
-            <figure className="mt-3 overflow-hidden rounded-2xl border border-white/10 bg-[#0d0d0d]">
+            <figure className="mt-3 overflow-hidden rounded-2xl border border-white/10 bg-[#080205]">
               <img alt="ตารางราคาฟิล์ม" className="h-auto w-full object-contain" src={film.priceTableImageUrl} />
             </figure>
           </section>
@@ -77,10 +77,10 @@ export function FilmDetail({ film, onBack }: { film: Film; onBack: () => void })
           <section className="mx-4 mt-5 grid gap-2">
             {film.highlights.map((highlight, index) => (
               <div
-                className="flex items-center gap-3 rounded-2xl border border-[#ff403b]/18 bg-[#ff403b]/8 px-4 py-4"
+                className="flex items-center gap-3 rounded-2xl border border-[#C0392B]/18 bg-[#C0392B]/8 px-4 py-4"
                 key={`${highlight}-${index}`}
               >
-                <ShieldCheck className="shrink-0 text-[#ff4a45]" size={24} />
+                <ShieldCheck className="shrink-0 text-[#C0392B]" size={24} />
                 <p className="min-w-0 break-words text-base font-black leading-snug text-white/78">{highlight}</p>
               </div>
             ))}

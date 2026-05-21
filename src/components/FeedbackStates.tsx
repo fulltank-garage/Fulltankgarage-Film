@@ -8,7 +8,7 @@ export function EmptyState({ className = '', description, title }: EmptyStatePro
   return (
     <div
       className={[
-        'rounded-[1.35rem] border border-white/12 bg-[#151515] px-5 py-12 text-center shadow-[0_0_34px_rgba(255,30,26,0.12)]',
+        'rounded-[1.35rem] border border-white/12 bg-[#151515] px-5 py-12 text-center shadow-[0_0_34px_rgba(192,57,43,0.12)]',
         className,
       ].join(' ')}
     >

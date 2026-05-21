@@ -88,7 +88,7 @@ function App() {
   }, [isLoadingFilms, selectedFilm, selectedSlug])
 
   return (
-    <main className="min-h-dvh bg-[#070707] px-4 pb-5 text-white">
+    <main className="min-h-dvh bg-[#080205] px-4 pb-5 text-white">
       <div className="mx-auto w-full max-w-3xl">
         {selectedFilm ? (
           <FilmDetail film={selectedFilm} onBack={() => setSelectedSlug(null)} />
